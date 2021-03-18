@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-
+from django.conf.urls import url
+from rest_framework.urlpatterns import format_suffix_patterns
+from dogs import views
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    url(r'^$', views.ApiRoot.as_view(), name=views.ApiRoot.name),
+    url(r'^dogs/$', views.DogList.as_view(), name=views.DogList.name),
+    url(r'^dogs/(?P<pk>[0-9]+)/$', views.DogDetail.as_view(), name=views.DogDetail.name),
+    url(r'^breeds/$', views.BreedList.as_view(), name=views.BreedList.name),
+    url(r'^breeds/(?P<pk>[0-9]+)/$', views.BreedDetail.as_view(), name=views.BreedDetail.name),
 ]
